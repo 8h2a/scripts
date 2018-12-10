@@ -1,0 +1,11 @@
+#!/bin/sh
+
+for file in `ls /etc/ssh/*.pub`
+do
+    SHA1HASH=`cut -d ' ' -f 2 < $file | base64 -d | sha1sum | sed -e 's/  -//g'`
+    MD5HASH=` cut -d ' ' -f 2 < $file | base64 -d | md5sum  | sed -e 's/  -//g'`
+    echo
+    echo "Host key file: $file"
+    echo "SHA1: $SHA1HASH"
+    echo " MD5: $MD5HASH"
+done
